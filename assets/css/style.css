@@ -1,22 +1,12 @@
 body{
     background-image:url("https://wallpaperscraft.com/image/train_structure_mountains_lake_movement_53374_1920x1080.jpg");
     background-size: cover;
-    
-   
 }
 
-
 .jumbotron{
-    background-color:blue;
    text-align:center;
    background-image:url("../images/tracks.jpg");
    background-size:cover;
-   
-
-  
-  
-   
-
 }
 
 .text-center{
