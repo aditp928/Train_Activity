@@ -15,6 +15,11 @@ body{
 
 #text{
     color:black;
-
-
 }
+
+#submitButton{
+    background-color: blue;
+    color:white;
+    font-size: 15px;
+}
+

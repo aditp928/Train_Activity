@@ -13,40 +13,40 @@ var database = firebase.database();
 var tMinutesTillTrain;
 
 
-$("#submitButton").on("click", function(event) {
+$("#submitButton").on("click", function (event) {
   event.preventDefault();
 
-var trainName = $("#trainName-Input").val().trim();
-var trainDestination = $("#destination-Input").val().trim();
-var time = $("#time-Input").val().trim();
-var trainFrequency = $("#frequency-Input").val().trim();
+  var trainName = $("#trainName-Input").val().trim();
+  var trainDestination = $("#destination-Input").val().trim();
+  var time = $("#time-Input").val().trim();
+  var trainFrequency = $("#frequency-Input").val().trim();
 
-var newTrain = {
-  name: trainName,
-  destination: trainDestination,
-  firstTrainTime:time,
-  frequency: trainFrequency
-};
+  var newTrain = {
+    name: trainName,
+    destination: trainDestination,
+    firstTrainTime: time,
+    frequency: trainFrequency
+  };
 
-database.ref().push(newTrain);
+  database.ref().push(newTrain);
 
-console.log("TrainName: " +newTrain.name);
-console.log("Destination is" + newTrain.destination);
-console.log("Train time is: " + newTrain.firstTrainTime);
-console.log("Frequency is: " + newTrain.frequency);
+  console.log("TrainName: " + newTrain.name);
+  console.log("Destination is" + newTrain.destination);
+  console.log("Train time is: " + newTrain.firstTrainTime);
+  console.log("Frequency is: " + newTrain.frequency);
 
-alert("Train successfully added!");
+  alert("Train successfully added!");
 
- 
+
 
   $("#trainName-Input").val("");
   $("#destination-Input").val("");
   $("#time-Input").val("");
   $("#frequency-Input").val("");
-  
+
 });
 
-database.ref().on("child_added", function(childSnapshot, prevChildKey) {
+database.ref().on("child_added", function (childSnapshot, prevChildKey) {
 
   console.log(childSnapshot.val());
 
@@ -70,7 +70,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   var diffTime = parseInt(moment().diff(moment(firstTimeConverted), "minutes"));
   console.log("DIFFERENCE IN TIME: " + diffTime);
 
- 
+
   var tRemainder = parseInt(diffTime) % parseInt(tFrequency);
   console.log(tRemainder);
 
@@ -81,20 +81,14 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   nextTrain = (moment(nextTrain).format("HH:mm"));
 
   console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
-  console.log("TrainName: ",trainName);
-  console.log("Train Destination: " ,trainDestination);
-  console.log("Time:",time);
-  console.log("Frequency",trainFrequency);
+  console.log("TrainName: ", trainName);
+  console.log("Train Destination: ", trainDestination);
+  console.log("Time:", time);
+  console.log("Frequency", trainFrequency);
   console.log("nextTrain", nextTrain);
-  console.log("minutestillTrain",tMinutesTillTrain);
+  console.log("minutestillTrain", tMinutesTillTrain);
 
 
   $("#train-Table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-trainFrequency + " min" + "</td><td>" + nextTrain + "</td><td>" +"Arrives in : " + tMinutesTillTrain +" min" + "</td></tr>");
+    trainFrequency + " min" + "</td><td>" + nextTrain + "</td><td>" + "Arrives in : " + tMinutesTillTrain + " min" + "</td></tr>");
 });
-
-
-
-
-
-
