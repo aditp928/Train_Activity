@@ -10,8 +10,6 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var nextTrain;
-
 var tMinutesTillTrain;
 
 
@@ -58,15 +56,15 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   var time = childSnapshot.val().firstTrainTime;
   var trainFrequency = childSnapshot.val().frequency;
 
-  var tFrequency = $("#frequency-Input");
+  var tFrequency = trainFrequency;
 
-  var firstTime = $("#time-Input");
+  var firstTime = time;
 
-  var firstTimeConverted = moment(firstTime, "HHmm").subtract(1, "years");
+  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
   console.log(firstTimeConverted);
 
   var currentTime = moment();
-  console.log("CURRENT TIME: " + moment(currentTime).format("HHmm"));
+  console.log("CURRENT TIME: " + moment(currentTime).format("HH:mm"));
 
 
   var diffTime = parseInt(moment().diff(moment(firstTimeConverted), "minutes"));
@@ -79,9 +77,10 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
   tMinutesTillTrain = parseInt(tFrequency) - parseInt(tRemainder);
   console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
 
- nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+  nextTrain = (moment(nextTrain).format("HH:mm"));
 
-  console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+  console.log("ARRIVAL TIME: " + moment(nextTrain).format("HH:mm"));
   console.log("TrainName: ",trainName);
   console.log("Train Destination: " ,trainDestination);
   console.log("Time:",time);
@@ -91,7 +90,7 @@ database.ref().on("child_added", function(childSnapshot, prevChildKey) {
 
 
   $("#train-Table > tbody").append("<tr><td>" + trainName + "</td><td>" + trainDestination + "</td><td>" +
-trainFrequency + " mins" + "</td><td>" + nextTrain + "</td><td>" +tMinutesTillTrain + "</td></tr>");
+trainFrequency + " min" + "</td><td>" + nextTrain + "</td><td>" +"Arrives in : " + tMinutesTillTrain +" min" + "</td></tr>");
 });
 
 
