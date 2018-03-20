@@ -60,7 +60,7 @@ database.ref().on("child_added", function (childSnapshot, prevChildKey) {
 
   var firstTime = time;
 
-  var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+  var firstTimeConverted = moment(firstTime, "HH:mm");
   console.log(firstTimeConverted);
 
   var currentTime = moment();
